@@ -202,8 +202,24 @@ if __name__ == '__main__':
 
             H = cv2.bitwise_and(H_upper, H_lower)
             H = cv2.bitwise_and(H, S_lower)
-            cv2.imshow('img', img)
-            cv2.imshow('H', H)
+
+            try:
+                y50_xmax = np.max(np.where(H[50, :] == 255))
+                y120_xmax = np.max(np.where(H[120, :] == 255))
+                
+                if y50_xmax > y120_xmax + 20:
+                    print("Turn right")
+                elif y120_xmax > y50_xmax + 15:
+                    print("Turn left")
+                elif y120_xmax > 200:
+                    print("Go right")
+                elif y120_xmax < 100:
+                    print("Go left")
+                else:
+                    print("Go Front")
+                    
+            except Exception:
+                print("노란색이 없습니다.")
             key = 0xFF & cv2.waitKey(1)
             if key == 27:  # ESC  Key
                 cap.release()
