@@ -24,3 +24,15 @@ class Robot():
     def north(self):
         self.TX_data(4)
         time.sleep(3)
+
+    def default(self):
+        self.TX_data(5)
+        time.sleep(3)
+
+    def bin_walk(self):
+        self.TX_data(6)
+        time.sleep(3)
+
+    def doorman_jehyeon(self):
+        self.TX_data(9)
+        time.sleep(10)
