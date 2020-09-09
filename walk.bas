@@ -97,7 +97,7 @@ MinWalk1:
     RETURN
     '****************************************
     
-    backstep:
+backstep:
 	GOSUB 자이로ON
     HIGHSPEED SETOFF
 	GOSUB Leg_motor_mode3
