@@ -18,7 +18,7 @@ receiving_exit = 1
 threading_Time = 0.01
 
 pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
-custom_config = r'--psm 10'
+custom_config = r'-c tessedit_char_whitelist=ABCD --psm 10'
 
 
 # -----------------------------------------------
@@ -110,11 +110,10 @@ if __name__ == '__main__':
     lower_blue = (80, 100, 80)
     upper_blue = (130, 255, 255)
 
-    lower_red = (130, 70, 100)
+    lower_red = (130, 50, 100)
     upper_red = (360, 255, 255)
 
-    color_check = 0  # 0이면 파란색에서 검사, 1이면 빨간색에서 검사
-    count_region = [0, 0, 0, 0, 0]  # A,B,C,D,나머지 순서
+    count_region = [0, 0, 0, 0]  # A,B,C,D,나머지 순서
 
     while True:
         # 영상 값 불러옴 img가 영상
@@ -124,93 +123,66 @@ if __name__ == '__main__':
 
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-        if color_check == 0:  # 파란색일경우
-            img_mask_blue = cv2.inRange(hsv, lower_blue, upper_blue)
-            img_result_blue = cv2.bitwise_and(img, img, mask=img_mask_blue)
+        img_mask_blue = cv2.inRange(hsv, lower_blue, upper_blue)
+        img_result_blue = cv2.bitwise_and(img, img, mask=img_mask_blue)
 
-            blur_blue = cv2.blur(img_result_blue, (3, 3))
+        blue_pixel = np.where(img_result_blue[:, :] == 0)
+        blue_pixel = len(blue_pixel[0])
 
-            alphabet = pytesseract.image_to_string(blur_blue, config=custom_config)
-            alphabet = alphabet[0:1]
-            if alphabet == "A":
-                count_region[0] += 1
-                if count_region[0] == 3:
-                    print("blue_A")
-                    count_region = [0, 0, 0, 0, 0]
-                    break;
-            elif alphabet == "B":
-                count_region[1] += 1
-                if count_region[1] == 3:
-                    print("blue_B")
-                    count_region = [0, 0, 0, 0, 0]
-                    break;
-            elif alphabet == "C":
-                count_region[2] += 1
-                if count_region[2] == 3:
-                    print("blue_C")
-                    count_region = [0, 0, 0, 0, 0]
-                    break;
-            elif alphabet == "D":
-                count_region[3] += 1
-                if count_region[3] == 3:
-                    print("blue_D")
-                    count_region = [0, 0, 0, 0, 0]
-                    break;
-            else:
-                count_region[4] += 1
-                if count_region[4] == 20:
-                    print("not blue")
-                    color_check = 1
-                    count_region = [0, 0, 0, 0, 0]
+        img_mask_red = cv2.inRange(hsv, lower_red, upper_red)
+        img_result_red = cv2.bitwise_and(img, img, mask=img_mask_red)
 
-            cv2.imshow('img_color_blue', blur_blue)
-        elif color_check == 1:  # 빨간색일경우
-            img_mask_red = cv2.inRange(hsv, lower_red, upper_red)
-            img_result_red = cv2.bitwise_and(img, img, mask=img_mask_red)
+        red_pixel = np.where(img_result_red[:, :] == 0)
+        red_pixel = len(red_pixel[0])
 
-            blur_red = cv2.blur(img_result_red, (3, 3))
+        blur_blue = cv2.blur(img_result_blue, (3, 3))
+        blur_red = cv2.blur(img_result_red, (3, 3))
 
-            alphabet = pytesseract.image_to_string(blur_red, config=custom_config)
-            alphabet = alphabet[0:1]
-            if alphabet == "A":
-                count_region[0] += 1
-                if count_region[0] == 3:
-                    print("red_A")
-                    count_region = [0, 0, 0, 0, 0]
-                    break;
-            elif alphabet == "B":
-                count_region[1] += 1
-                if count_region[1] == 3:
-                    print("red_B")
-                    count_region = [0, 0, 0, 0, 0]
-                    break;
-            elif alphabet == "C":
-                count_region[2] += 1
-                if count_region[2] == 3:
-                    print("red_C")
-                    count_region = [0, 0, 0, 0, 0]
-                    break;
-            elif alphabet == "D":
-                count_region[3] += 1
-                if count_region[3] == 3:
-                    print("red_D")
-                    count_region = [0, 0, 0, 0, 0]
-                    break;
-            else:
-                count_region[4] += 1
-                if count_region[4] == 20:
-                    print("not red")
-                    color_check = 0
-                    count_region = [0, 0, 0, 0, 0]
+        cv2.imshow('img_color_red', blur_red)
+        cv2.imshow('img_color_blue', blur_blue)
 
-            cv2.imshow('img_color_red', blur_red)
-
-            # cv2.waitKey(0)
+        # cv2.waitKey(0)
         key = 0xFF & cv2.waitKey(1)
         if key == 27:  # ESC  Key
             cap.release()
             cv2.destroyAllWindows()
             break
+
+        if blue_pixel > red_pixel:
+            print("red")
+            alphabet = pytesseract.image_to_string(blur_red, config=custom_config)
+        else:
+            print("blue")
+            alphabet = pytesseract.image_to_string(blur_blue, config=custom_config)
+
+        alphabet = alphabet[0:1]
+        print(alphabet)
+        if alphabet == "A":
+            count_region[0] += 1
+            if count_region[0] == 3:
+                print("A!!!")
+                count_region = [0, 0, 0, 0]
+                break;
+        elif alphabet == "B":
+            count_region[1] += 1
+            if count_region[1] == 3:
+                print("B!!!")
+                count_region = [0, 0, 0, 0]
+                break;
+        elif alphabet == "C" or alphabet == "c":
+            count_region[2] += 1
+            if count_region[2] == 3:
+                print("C!!!")
+                count_region = [0, 0, 0, 0]
+                break;
+        elif alphabet == "D":
+            count_region[3] += 1
+            if count_region[3] == 3:
+                print("D!!!")
+                count_region = [0, 0, 0, 0]
+                break;
+        else:
+            continue
 
 
 
@@ -223,11 +195,5 @@ if __name__ == '__main__':
     bearing = [0, 0, 0, 0]  # EWSN(동서남북)
 
     exit(1)
-
-
-
-
-
-
 
 
