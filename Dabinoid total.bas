@@ -1783,7 +1783,7 @@ KEY16: ' POWER
 
 KEY17: ' C
     ETX  4800,17
-    GOSUB woosturnleft
+    GOSUB hyunright	
     GOTO RX_EXIT
 
 KEY18: ' E
