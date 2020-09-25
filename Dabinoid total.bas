@@ -1,4 +1,4 @@
-'******** 2Á· º¸Çà·Îº¿ ÃÊ±â ¿µÁ¡ ÇÁ·Î±×·¥ ********
+'******** 2ì¡± ë³´í–‰ë¡œë´‡ ì´ˆê¸° ì˜ì  í”„ë¡œê·¸ëž¨ ********
 
 DIM I AS BYTE
 DIM J AS BYTE
@@ -7,23 +7,23 @@ DIM A AS BYTE
 DIM A_old AS BYTE
 DIM B AS BYTE
 DIM C AS BYTE
-DIM º¸Çà¼Óµµ AS BYTE
-DIM ÁÂ¿ì¼Óµµ AS BYTE
-DIM ÁÂ¿ì¼Óµµ2 AS BYTE
-DIM º¸Çà¼ø¼­ AS BYTE
-DIM ÇöÀçÀü¾Ð AS BYTE
-DIM ¹ÝÀüÃ¼Å© AS BYTE
-DIM ¸ðÅÍONOFF AS BYTE
-DIM ÀÚÀÌ·ÎONOFF AS BYTE
-DIM ±â¿ï±â¾ÕµÚ AS INTEGER
-DIM ±â¿ï±âÁÂ¿ì AS INTEGER
+DIM ë³´í–‰ì†ë„ AS BYTE
+DIM ì¢Œìš°ì†ë„ AS BYTE
+DIM ì¢Œìš°ì†ë„2 AS BYTE
+DIM ë³´í–‰ìˆœì„œ AS BYTE
+DIM í˜„ìž¬ì „ì•• AS BYTE
+DIM ë°˜ì „ì²´í¬ AS BYTE
+DIM ëª¨í„°ONOFF AS BYTE
+DIM ìžì´ë¡œONOFF AS BYTE
+DIM ê¸°ìš¸ê¸°ì•žë’¤ AS INTEGER
+DIM ê¸°ìš¸ê¸°ì¢Œìš° AS INTEGER
 DIM DELAY_TIME AS BYTE
 DIM DELAY_TIME2 AS BYTE
 'DIM STEP AS BYTE
-DIM ³Ñ¾îÁøÈ®ÀÎ AS BYTE
-DIM ±â¿ï±âÈ®ÀÎÈ½¼ö AS BYTE
-DIM º¸ÇàÈ½¼ö AS BYTE
-DIM º¸ÇàCOUNT AS BYTE
+DIM ë„˜ì–´ì§„í™•ì¸ AS BYTE
+DIM ê¸°ìš¸ê¸°í™•ì¸íšŸìˆ˜ AS BYTE
+DIM ë³´í–‰íšŸìˆ˜ AS BYTE
+DIM ë³´í–‰COUNT AS BYTE
 '************************************************
 DIM NO_0 AS BYTE
 DIM NO_1 AS BYTE
@@ -37,43 +37,43 @@ DIM BUTTON_NO AS INTEGER
 DIM SOUND_BUSY AS BYTE
 DIM TEMP_INTEGER AS INTEGER
 
-'**** ±â¿ï±â¼¾¼­Æ÷Æ® ¼³Á¤ ****
-CONST ¾ÕµÚ±â¿ï±âADÆ÷Æ® = 0
-CONST ÁÂ¿ì±â¿ï±âADÆ÷Æ® = 1
-CONST ±â¿ï±âÈ®ÀÎ½Ã°£ = 20  'ms
+'**** ê¸°ìš¸ê¸°ì„¼ì„œí¬íŠ¸ ì„¤ì • ****
+CONST ì•žë’¤ê¸°ìš¸ê¸°ADí¬íŠ¸ = 0
+CONST ì¢Œìš°ê¸°ìš¸ê¸°ADí¬íŠ¸ = 1
+CONST ê¸°ìš¸ê¸°í™•ì¸ì‹œê°„ = 20  'ms
 
 
-CONST min = 61	'µÚ·Î³Ñ¾îÁ³À»¶§
-CONST max = 107	'¾ÕÀ¸·Î³Ñ¾îÁ³À»¶§
+CONST min = 61	'ë’¤ë¡œë„˜ì–´ì¡Œì„ë•Œ
+CONST max = 107	'ì•žìœ¼ë¡œë„˜ì–´ì¡Œì„ë•Œ
 CONST COUNT_MAX = 3
-CONST ÇÏÇÑÀü¾Ð = 154  '¾à6VÀü¾Ð
-CONST ¸Ó¸®ÀÌµ¿¼Óµµ = 10
+CONST í•˜í•œì „ì•• = 154  'ì•½6Vì „ì••
+CONST ë¨¸ë¦¬ì´ë™ì†ë„ = 10
 '************************************************
 
 
 
-PTP SETON 				'´ÜÀ§±×·ìº° Á¡´ëÁ¡µ¿ÀÛ ¼³Á¤
-PTP ALLON				'ÀüÃ¼¸ðÅÍ Á¡´ëÁ¡ µ¿ÀÛ ¼³Á¤
+PTP SETON 				'ë‹¨ìœ„ê·¸ë£¹ë³„ ì ëŒ€ì ë™ìž‘ ì„¤ì •
+PTP ALLON				'ì „ì²´ëª¨í„° ì ëŒ€ì  ë™ìž‘ ì„¤ì •
 
-DIR G6A,1,0,0,1,0,0		'¸ðÅÍ0~5¹ø
-DIR G6D,0,1,1,0,1,1		'¸ðÅÍ18~23¹ø
-DIR G6B,1,1,1,1,1,1		'¸ðÅÍ6~11¹ø
-DIR G6C,0,0,0,0,0,0		'¸ðÅÍ12~17¹ø    '0,0,0,0,1,0
+DIR G6A,1,0,0,1,0,0		'ëª¨í„°0~5ë²ˆ
+DIR G6D,0,1,1,0,1,1		'ëª¨í„°18~23ë²ˆ
+DIR G6B,1,1,1,1,1,1		'ëª¨í„°6~11ë²ˆ
+DIR G6C,0,0,0,0,0,0		'ëª¨í„°12~17ë²ˆ    '0,0,0,0,1,0
 
 '************************************************
 
-OUT 52,0	'¸Ó¸® LED ÄÑ±â
-'***** ÃÊ±â¼±¾ð '************************************************
+OUT 52,0	'ë¨¸ë¦¬ LED ì¼œê¸°
+'***** ì´ˆê¸°ì„ ì–¸ '************************************************
 'STEP = 0
-º¸Çà¼ø¼­ = 0
-¹ÝÀüÃ¼Å© = 0
-±â¿ï±âÈ®ÀÎÈ½¼ö = 0
-º¸ÇàÈ½¼ö = 1
-¸ðÅÍONOFF = 0
+ë³´í–‰ìˆœì„œ = 0
+ë°˜ì „ì²´í¬ = 0
+ê¸°ìš¸ê¸°í™•ì¸íšŸìˆ˜ = 0
+ë³´í–‰íšŸìˆ˜ = 1
+ëª¨í„°ONOFF = 0
 
-'****ÃÊ±âÀ§Ä¡ ÇÇµå¹é*****************************
+'****ì´ˆê¸°ìœ„ì¹˜ í”¼ë“œë°±*****************************
 
-GOSUB ÀÚÀÌ·ÎINIT
+GOSUB ìžì´ë¡œINIT
 GOSUB MOTOR_SET
 TEMPO 230
 MUSIC "g<abcdefg"
@@ -84,39 +84,39 @@ GOSUB MOTOR_ON
 
 'delay 3000
 
-GOSUB Àü¿øÃÊ±âÀÚ¼¼
-GOSUB ±âº»ÀÚ¼¼
-GOSUB ÀÚÀÌ·ÎMID2
-GOSUB ÀÚÀÌ·ÎON
+GOSUB ì „ì›ì´ˆê¸°ìžì„¸
+GOSUB ê¸°ë³¸ìžì„¸
+GOSUB ìžì´ë¡œMID2
+GOSUB ìžì´ë¡œON
 GOSUB All_motor_mode3
 
 
 'PRINT "VOLUME 200 !"
-'PRINT "SOUND 12 !" '¾È³çÇÏ¼¼¿ä
+'PRINT "SOUND 12 !" 'ì•ˆë…•í•˜ì„¸ìš”
 
-GOTO MAIN	'½Ã¸®¾ó ¼ö½Å ·çÆ¾À¸·Î °¡±â
-
-'************************************************
-
+GOTO MAIN	'ì‹œë¦¬ì–¼ ìˆ˜ì‹  ë£¨í‹´ìœ¼ë¡œ ê°€ê¸°
 
 '************************************************
-½ÃÀÛÀ½:
+
+
+'************************************************
+ì‹œìž‘ìŒ:
     TEMPO 220
     MUSIC "O23EAB7EA>3#C"
     RETURN
     '************************************************
-Á¾·áÀ½:
+ì¢…ë£ŒìŒ:
     TEMPO 220
     MUSIC "O38GD<BGD<BG"
     RETURN
     '************************************************
-¿¡·¯À½:
+ì—ëŸ¬ìŒ:
     TEMPO 250
     MUSIC "FFF"
     RETURN
     '************************************************
     '************************************************
-MOTOR_ON: 'ÀüÆ÷Æ®¼­º¸¸ðÅÍ»ç¿ë¼³Á¤
+MOTOR_ON: 'ì „í¬íŠ¸ì„œë³´ëª¨í„°ì‚¬ìš©ì„¤ì •
 
     GOSUB MOTOR_GET
 
@@ -128,24 +128,24 @@ MOTOR_ON: 'ÀüÆ÷Æ®¼­º¸¸ðÅÍ»ç¿ë¼³Á¤
     DELAY 50
     MOTOR G6D
 
-    ¸ðÅÍONOFF = 0
-    'GOSUB ½ÃÀÛÀ½			
+    ëª¨í„°ONOFF = 0
+    'GOSUB ì‹œìž‘ìŒ			
     RETURN
 
     '************************************************
-    'ÀüÆ÷Æ®¼­º¸¸ðÅÍ»ç¿ë¼³Á¤
+    'ì „í¬íŠ¸ì„œë³´ëª¨í„°ì‚¬ìš©ì„¤ì •
 MOTOR_OFF:
 
     MOTOROFF G6B
     MOTOROFF G6C
     MOTOROFF G6A
     MOTOROFF G6D
-    ¸ðÅÍONOFF = 1	
+    ëª¨í„°ONOFF = 1	
     GOSUB MOTOR_GET	
-    'GOSUB Á¾·áÀ½	
+    'GOSUB ì¢…ë£ŒìŒ	
     RETURN
     '************************************************
-    'À§Ä¡°ªÇÇµå¹é
+    'ìœ„ì¹˜ê°’í”¼ë“œë°±
 MOTOR_GET:
     GETMOTORSET G6A,1,1,1,1,1,0
     GETMOTORSET G6B,1,1,1,0,0,1
@@ -154,7 +154,7 @@ MOTOR_GET:
     RETURN
 
     '************************************************
-    'À§Ä¡°ªÇÇµå¹é
+    'ìœ„ì¹˜ê°’í”¼ë“œë°±
 MOTOR_SET:
     GETMOTORSET G6A,1,1,1,1,1,0
     GETMOTORSET G6B,1,1,1,0,0,1
@@ -238,8 +238,8 @@ Arm_motor_mode3:
     '************************************************
     '***********************************************
     '***********************************************
-    '**** ÀÚÀÌ·Î°¨µµ ¼³Á¤ ****
-ÀÚÀÌ·ÎINIT:
+    '**** ìžì´ë¡œê°ë„ ì„¤ì • ****
+ìžì´ë¡œINIT:
 
     GYRODIR G6A, 0, 0, 1, 0,0
     GYRODIR G6D, 1, 0, 1, 0,0
@@ -253,55 +253,55 @@ Arm_motor_mode3:
 
     RETURN
     '***********************************************
-    '**** ÀÚÀÌ·Î°¨µµ ¼³Á¤ ****
-ÀÚÀÌ·ÎMAX:
+    '**** ìžì´ë¡œê°ë„ ì„¤ì • ****
+ìžì´ë¡œMAX:
 
     GYROSENSE G6A,250,180,30,180,0
     GYROSENSE G6D,250,180,30,180,0
 
     RETURN
     '***********************************************
-ÀÚÀÌ·ÎMID:
+ìžì´ë¡œMID:
 
     GYROSENSE G6A,200,150,30,150,0
     GYROSENSE G6D,200,150,30,150,0
 
     RETURN
     '***********************************************
-ÀÚÀÌ·ÎMID2:
+ìžì´ë¡œMID2:
 
     GYROSENSE G6A,250,100,30,100,
     GYROSENSE G6D,250,100,30,100,
 
     RETURN
     '***********************************************
-ÀÚÀÌ·ÎMIN:
+ìžì´ë¡œMIN:
 
     GYROSENSE G6A,200,100,30,100,0
     GYROSENSE G6D,200,100,30,100,0
     RETURN
     '***********************************************
-ÀÚÀÌ·ÎON:
+ìžì´ë¡œON:
 
 
     GYROSET G6A, 4, 3, 3, 3, 0
     GYROSET G6D, 4, 3, 3, 3, 0
 
 
-    ÀÚÀÌ·ÎONOFF = 1
+    ìžì´ë¡œONOFF = 1
 
     RETURN
     '***********************************************
-ÀÚÀÌ·ÎOFF:
+ìžì´ë¡œOFF:
 
     GYROSET G6A, 0, 0, 0, 0, 0
     GYROSET G6D, 0, 0, 0, 0, 0
 
-    ÀÚÀÌ·ÎONOFF = 0
+    ìžì´ë¡œONOFF = 0
     RETURN
 
     '************************************************
-Àü¿øÃÊ±âÀÚ¼¼:
+ì „ì›ì´ˆê¸°ìžì„¸:
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 100
     MOVE G6B,100,  35,  90
@@ -311,7 +311,7 @@ Arm_motor_mode3:
     RETURN
 
     '************************************************
-¾ÈÁ¤È­ÀÚ¼¼:
+ì•ˆì •í™”ìžì„¸:
     MOVE G6A, 98,  76, 145,  93, 101, 100
     MOVE G6D, 98,  76, 145,  93, 101, 100
     MOVE G6B,100,  35,  90,
@@ -320,7 +320,7 @@ Arm_motor_mode3:
     mode = 0
     RETURN
     '************************************************
-±âº»ÀÚ¼¼:
+ê¸°ë³¸ìžì„¸:
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 25
     MOVE G6B,100,  35,  80, 100, 100, 100
@@ -330,7 +330,7 @@ Arm_motor_mode3:
     ETX 4800,33
     RETURN
     '************************************************
-±âº»ÀÚ¼¼2:
+ê¸°ë³¸ìžì„¸2:
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 100
     MOVE G6B,100,  35,  80,
@@ -339,7 +339,7 @@ Arm_motor_mode3:
     mode = 0
     RETURN
     '************************************************
-Â÷·ÇÀÚ¼¼:
+ì°¨ë ·ìžì„¸:
     MOVE G6A,100, 56, 182, 76, 100, 100
     MOVE G6D,100, 56, 182, 76, 100, 100
     MOVE G6B,100, 30, 90, 100, 100, 100
@@ -348,14 +348,14 @@ Arm_motor_mode3:
     mode = 2
     RETURN
     '******************************************
-¾ÉÀºÀÚ¼¼:
+ì•‰ì€ìžì„¸:
     MOVE G6A,100, 144,  22, 145, 100, 100
     MOVE G6D,100, 146,  22, 145, 100, 100
     MOVE G6B,110,  35,  80, 100, 100, 100
     MOVE G6C,110,  35,  80, 100, 100, 100	
     WAIT
     mode = 1
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
     RETURN
     '**********************************************
     '**********************************************
@@ -468,7 +468,7 @@ NORTH:
     ETX 4800,33
     RETURN
     '**********************************************
-Ã¹ºÎºÐ°í°³»ìÂ¦µé±â:
+ì²«ë¶€ë¶„ê³ ê°œì‚´ì§ë“¤ê¸°:
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 100
     MOVE G6B,100,  35,  80,
@@ -479,7 +479,7 @@ NORTH:
     '**********************************************
 WooWalk2:
 
-    GOSUB ÀÚÀÌ·ÎON
+    GOSUB ìžì´ë¡œON
     HIGHSPEED SETOFF
     GOSUB All_motor_mode3
 
@@ -570,14 +570,14 @@ WooWalk2:
     MOVE G6C,100,  35,  80, 100, 117, 100
     WAIT
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
 
     DELAY 500
 
     RETURN
     '***************************
 MinWalk1:
-    GOSUB ÀÚÀÌ·ÎON
+    GOSUB ìžì´ë¡œON
     HIGHSPEED SETOFF
     GOSUB All_motor_mode3
 
@@ -668,7 +668,7 @@ MinWalk1:
     MOVE G6C,100,  35,  80, 100
     WAIT
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
 
     DELAY 500
 
@@ -676,7 +676,7 @@ MinWalk1:
     '**********************************************
 Lturn90:
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
 
     GOSUB Leg_motor_mode1
 
@@ -691,15 +691,15 @@ Lturn90:
     WAIT
 
     SPEED 10
-    GOSUB ±âº»ÀÚ¼¼
+    GOSUB ê¸°ë³¸ìžì„¸
     DELAY 500
 
-    GOSUB ÀÚÀÌ·ÎON
+    GOSUB ìžì´ë¡œON
     RETURN
     '**********************************************
 jiwon:
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
     GOSUB leg_motor_mode1
 
     SPEED 5
@@ -779,9 +779,9 @@ jiwon:
     DELAY 100
     RETURN
     '***************************************
-milkwalkfront: 'minwalk + ¿ìÀ¯µé±â
+milkwalkfront: 'minwalk + ìš°ìœ ë“¤ê¸°
 
-    GOSUB ÀÚÀÌ·ÎON
+    GOSUB ìžì´ë¡œON
     HIGHSPEED SETOFF
     GOSUB All_motor_mode3
 
@@ -871,7 +871,7 @@ milkwalkfront: 'minwalk + ¿ìÀ¯µé±â
     MOVE G6C,165,  15,  55, 100, 120, 100
     WAIT
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
 
     DELAY 500
 
@@ -879,7 +879,7 @@ milkwalkfront: 'minwalk + ¿ìÀ¯µé±â
     '****************************************
 jiwondown:
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
     GOSUB leg_motor_mode1
 
     SPEED 5
@@ -961,7 +961,7 @@ jiwondown:
     '**************************************************************
 SWalk:
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
 
     GOSUB Leg_motor_mode2
     SPEED 10
@@ -1015,15 +1015,15 @@ SWalk:
     MOVE G6C,100,  35,  80, 100, 120, 100
     WAIT
 
-    GOSUB ±âº»ÀÚ¼¼
-    GOSUB ÀÚÀÌ·ÎON
-    '3.5¹ø ÁÙÀÓ
+    GOSUB ê¸°ë³¸ìžì„¸
+    GOSUB ìžì´ë¡œON
+    '3.5ë²ˆ ì¤„ìž„
     RETURN
     '************************************************
 
 dooropen:
 
-    GOSUB ÀÚÀÌ·ÎON
+    GOSUB ìžì´ë¡œON
     HIGHSPEED SETOFF
     GOSUB All_motor_mode3
 
@@ -1123,10 +1123,10 @@ dooropen:
     MOVE G6C,180,  10,  60, 100, 117, 100
     WAIT
 
-    '***************'''''''''''''''''''''''''    'µÞ°ÉÀ½Áú ¹Ýº¹
+    '***************'''''''''''''''''''''''''    'ë’·ê±¸ìŒì§ˆ ë°˜ë³µ
     FOR I=0 TO 2
 
-        '¿À¸¥ÂÊ±â¿ï±â
+        'ì˜¤ë¥¸ìª½ê¸°ìš¸ê¸°
         SPEED 4
         MOVE G6A, 88,  71, 152,  91, 110
         MOVE G6D,108,  76, 146,  93,  94
@@ -1134,7 +1134,7 @@ dooropen:
         MOVE G6C,100,50
         WAIT
 
-        '¿Þ¹ßµé±â
+        'ì™¼ë°œë“¤ê¸°
         SPEED 10
         MOVE G6A, 90, 95, 115, 105, 114
         MOVE G6D,113,  78, 146,  93,  94
@@ -1143,7 +1143,7 @@ dooropen:
         WAIT
         '*************************************************
         GOSUB Leg_motor_mode2
-        '¿À¸¥¹ßÁß½ÉÀÌµ¿
+        'ì˜¤ë¥¸ë°œì¤‘ì‹¬ì´ë™
         SPEED 10
         MOVE G6D,110,  76, 144, 100,  93
         MOVE G6A, 90, 93, 155,  71, 112
@@ -1152,7 +1152,7 @@ dooropen:
         WAIT
 
         GOSUB Leg_motor_mode3
-        '¿À¸¥¹ß»»¾îÂøÁö
+        'ì˜¤ë¥¸ë°œë»£ì–´ì°©ì§€
         SPEED 4
         MOVE G6D,90,  46, 163, 110, 114
         MOVE G6A,110,  77, 147,  90,  94
@@ -1160,7 +1160,7 @@ dooropen:
         MOVE G6C,100,50
         WAIT
 
-        '¿À¸¥¹ßµé±â10
+        'ì˜¤ë¥¸ë°œë“¤ê¸°10
         SPEED 10
         MOVE G6A,112,  77, 147,  93, 94
         MOVE G6D,90, 100, 105, 110, 114
@@ -1170,7 +1170,7 @@ dooropen:
 
         GOSUB Leg_motor_mode3
 
-        '¿ÞÂÊ±â¿ï±â2
+        'ì™¼ìª½ê¸°ìš¸ê¸°2
         SPEED 5
         MOVE G6A, 106,  76, 146,  93,  96		
         MOVE G6D,  88,  71, 152,  91, 106
@@ -1183,7 +1183,7 @@ dooropen:
 
 
     SPEED 3
-    GOSUB ±âº»ÀÚ¼¼
+    GOSUB ê¸°ë³¸ìžì„¸
 
     DELAY 500
 
@@ -1205,11 +1205,11 @@ armheaddown:
     '****************************************************************
 backstepleft:
 
-    GOSUB ÀÚÀÌ·ÎON
+    GOSUB ìžì´ë¡œON
     HIGHSPEED SETOFF
     GOSUB Leg_motor_mode3
 
-    '¿À¸¥ÂÊ±â¿ï±â
+    'ì˜¤ë¥¸ìª½ê¸°ìš¸ê¸°
     SPEED 4
     MOVE G6A, 88,  71, 152,  91, 110
     MOVE G6D,108,  76, 146,  93,  94
@@ -1217,7 +1217,7 @@ backstepleft:
     MOVE G6C,100,35
     WAIT
 
-    '¿Þ¹ßµé±â
+    'ì™¼ë°œë“¤ê¸°
     SPEED 10
     MOVE G6A, 90, 95, 115, 105, 114
     MOVE G6D,113,  78, 146,  93,  94
@@ -1226,20 +1226,20 @@ backstepleft:
     WAIT
     '*************************************************
     GOSUB Leg_motor_mode2
-    '¿À¸¥¹ßÁß½ÉÀÌµ¿
+    'ì˜¤ë¥¸ë°œì¤‘ì‹¬ì´ë™
     SPEED 10
     MOVE G6D,110,  76, 144, 100,  93
     MOVE G6A, 90, 93, 155,  71, 112
     WAIT
 
     GOSUB Leg_motor_mode3
-    '¿À¸¥¹ß»»¾îÂøÁö
+    'ì˜¤ë¥¸ë°œë»£ì–´ì°©ì§€
     SPEED 4
     MOVE G6D,90,  46, 163, 110, 114
     MOVE G6A,110,  77, 147,  90,  94
     WAIT
 
-    '¿À¸¥¹ßµé±â10
+    'ì˜¤ë¥¸ë°œë“¤ê¸°10
     SPEED 10
     MOVE G6A,112,  77, 147,  93, 94
     MOVE G6D,90, 100, 105, 110, 114
@@ -1249,7 +1249,7 @@ backstepleft:
 
     GOSUB Leg_motor_mode3
 
-    '¿ÞÂÊ±â¿ï±â2
+    'ì™¼ìª½ê¸°ìš¸ê¸°2
     SPEED 5
     MOVE G6A, 106,  76, 146,  93,  96		
     MOVE G6D,  88,  71, 152,  91, 106
@@ -1259,7 +1259,7 @@ backstepleft:
 
 
     SPEED 3
-    GOSUB ±âº»ÀÚ¼¼
+    GOSUB ê¸°ë³¸ìžì„¸
 
     DELAY 500
 
@@ -1268,7 +1268,7 @@ backstepleft:
     '************************************************
 backstepright:
 
-    GOSUB ÀÚÀÌ·ÎON
+    GOSUB ìžì´ë¡œON
     HIGHSPEED SETOFF
     GOSUB Leg_motor_mode3
 
@@ -1322,7 +1322,7 @@ backstepright:
 
 
     SPEED 3
-    GOSUB ±âº»ÀÚ¼¼
+    GOSUB ê¸°ë³¸ìžì„¸
 
     DELAY 500
 
@@ -1331,20 +1331,20 @@ backstepright:
     '************************************************
 GO_FRONT2:
 
-    GOSUB ÀÚÀÌ·ÎON
+    GOSUB ìžì´ë¡œON
 
     GOSUB All_motor_mode3
 
     SPEED 4
-    '¿ÞÂÊ±â¿ï±â
+    'ì™¼ìª½ê¸°ìš¸ê¸°
     MOVE G6D, 90,  73, 152,  88, 105
     MOVE G6A,104,  79, 146,  90, 100
     MOVE G6C,100,  35,  80, 100
     MOVE G6B,100,  35,  80, 100, 100, 100
     WAIT
 
-    SPEED 12'º¸Çà¼Óµµ
-    '¿À¸¥¹ß µé±â
+    SPEED 12'ë³´í–‰ì†ë„
+    'ì˜¤ë¥¸ë°œ ë“¤ê¸°
     MOVE G6D, 83, 98, 115, 104, 111
     MOVE G6A,108,  84, 140,  90,  96
     MOVE G6C,90
@@ -1352,19 +1352,19 @@ GO_FRONT2:
     WAIT
 
     SPEED 13
-    '¿À¸¥¹ß»»¾îÂøÁö
+    'ì˜¤ë¥¸ë°œë»£ì–´ì°©ì§€
     MOVE G6D, 94,  53, 153, 112,  102
     MOVE G6A,106,  84, 142,  90,  100
     WAIT
 
     SPEED 5
-    '¿À¸¥¹ß Áß½ÉÀÌµ¿
+    'ì˜¤ë¥¸ë°œ ì¤‘ì‹¬ì´ë™
     MOVE G6D,103,  74, 137, 104,  105
     MOVE G6A,95, 88, 150,  75, 100
     WAIT
 
     SPEED 7
-    '¿Þ¹ßµé±â10
+    'ì™¼ë°œë“¤ê¸°10
     MOVE G6D,106,  75, 145,  96, 98
     MOVE G6A,95, 87, 118, 110, 103
     MOVE G6C,110
@@ -1378,11 +1378,11 @@ GO_FRONT2:
     MOVE G6C,100,  35,  80, 100
     WAIT
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
 
     RETURN
     '************************************************
-hyunleft: '³ªÁß¿¡ ´Ù¸®ºÎºÐ ¼öÁ¤
+hyunleft: 'ë‚˜ì¤‘ì— ë‹¤ë¦¬ë¶€ë¶„ ìˆ˜ì •
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 100
     MOVE G6B,100,  35,  80, 100, 100, 60
@@ -1400,7 +1400,7 @@ hyunright:
     mode = 0
     RETURN
     '**********************************************
-kyeongleft: '¸Ó¸®¿ÏÀü ÆÅ ¼÷ÀÎÃ¤·Î 45µµ ¿ÞÂÊ
+kyeongleft: 'ë¨¸ë¦¬ì™„ì „ íŒ ìˆ™ì¸ì±„ë¡œ 45ë„ ì™¼ìª½
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 100
     MOVE G6B,100,  35,  80, 100, 100, 60
@@ -1418,6 +1418,24 @@ kyeongright:
     mode = 0
     RETURN
     '*********************************************
+hyunfront
+	MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 140, 100
+    WAIT
+    mode = 0
+    RETURN
+    '*********************************************
+kyeongfront
+	MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 180, 100
+    WAIT
+    mode = 0
+    RETURN
+'************************************************
 headright:
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 25
@@ -1482,7 +1500,7 @@ milkwalkright:
     '************************************************
 milkSWalk:
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
 
     GOSUB Leg_motor_mode2
     SPEED 10
@@ -1535,14 +1553,14 @@ milkSWalk:
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
 
-    GOSUB ±âº»ÀÚ¼¼
-    GOSUB ÀÚÀÌ·ÎON
-    '3.5¹ø ÁÙÀÓ
+    GOSUB ê¸°ë³¸ìžì„¸
+    GOSUB ìžì´ë¡œON
+    '3.5ë²ˆ ì¤„ìž„
     RETURN
     '*****************************************************
-woosturnleft: 'JLturn10 ¼öÁ¤ÇÑ°Í
+woosturnleft: 'JLturn10 ìˆ˜ì •í•œê²ƒ
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
 
     GOSUB Leg_motor_mode1
 
@@ -1579,7 +1597,7 @@ TurnLeft60:
     WAIT
 
     SPEED 10
-    GOSUB ±âº»ÀÚ¼¼
+    GOSUB ê¸°ë³¸ìžì„¸
     GOTO MAIN
     '***************************************************
 TurnRight60:
@@ -1595,12 +1613,12 @@ TurnRight60:
     WAIT
 
     SPEED 10
-    GOSUB ±âº»ÀÚ¼¼
+    GOSUB ê¸°ë³¸ìžì„¸
     GOTO MAIN
     '***************************************************
 LWalk:
 
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
 
     GOSUB Leg_motor_mode2
 
@@ -1627,7 +1645,7 @@ LWalk:
 
     '**********************************************
 RWalk:
-    GOSUB ÀÚÀÌ·ÎOFF
+    GOSUB ìžì´ë¡œOFF
 
     GOSUB Leg_motor_mode2
 
@@ -1656,16 +1674,16 @@ RWalk:
 
 
 
-MAIN: '¶óº§¼³Á¤
+MAIN: 'ë¼ë²¨ì„¤ì •
 
-    '**** ÀÔ·ÂµÈ A°ªÀÌ 0 ÀÌ¸é MAIN ¶óº§·Î °¡°í
-    '**** 1ÀÌ¸é KEY1 ¶óº§, 2ÀÌ¸é key2·Î... °¡´Â¹®
+    '**** ìž…ë ¥ëœ Aê°’ì´ 0 ì´ë©´ MAIN ë¼ë²¨ë¡œ ê°€ê³ 
+    '**** 1ì´ë©´ KEY1 ë¼ë²¨, 2ì´ë©´ key2ë¡œ... ê°€ëŠ”ë¬¸
 
-    'GOSUB Àü¾ÐÃ¼Å©
-    ' GOSUB ¾ÕµÚ±â¿ï±âÃøÁ¤
-    '  GOSUB ÁÂ¿ì±â¿ï±âÃøÁ¤
+    'GOSUB ì „ì••ì²´í¬
+    ' GOSUB ì•žë’¤ê¸°ìš¸ê¸°ì¸¡ì •
+    '  GOSUB ì¢Œìš°ê¸°ìš¸ê¸°ì¸¡ì •
 
-    IF ¸ðÅÍONOFF = 1  THEN
+    IF ëª¨í„°ONOFF = 1  THEN
         DELAY 200
         OUT 52,0
         DELAY 200
@@ -1682,7 +1700,7 @@ MAIN2:
 
     GOTO MAIN	
     '*******************************************
-    '		MAIN ¶óº§·Î °¡±â
+    '		MAIN ë¼ë²¨ë¡œ ê°€ê¸°
     '*******************************************
 
 KEY1:
@@ -1706,7 +1724,7 @@ KEY4:
 
 KEY5:
     ETX  4800,5
-    GOSUB ±âº»ÀÚ¼¼
+    GOSUB ê¸°ë³¸ìžì„¸
     GOTO RX_EXIT
 
 KEY6:
@@ -1734,21 +1752,21 @@ KEY10: '0
     GOSUB dooropen
     GOTO RX_EXIT
 
-KEY11: ' ¡ã
+KEY11: ' â–²
     ETX  4800,11
     GOSUB WooWalk2
     GOTO RX_EXIT
 
-KEY12: ' ¡å
+KEY12: ' â–¼
     ETX  4800,12
     GOSUB backstepleft
     GOTO RX_EXIT
-KEY13: '¢º
+KEY13: 'â–¶
     ETX  4800,13
     GOSUB Rwalk
     GOTO RX_EXIT
 
-KEY14: ' ¢¸
+KEY14: ' â—€
     ETX  4800,14
     GOSUB Lwalk
     GOTO RX_EXIT
@@ -1783,7 +1801,7 @@ KEY20: ' B
     GOSUB TurnRight60
     GOTO RX_EXIT
 
-KEY21: ' ¡â
+KEY21: ' â–³
     ETX  4800,21
     GOSUB milkwalkright
     GOTO RX_EXIT
@@ -1808,7 +1826,7 @@ KEY25: ' P1
     GOSUB TurnRight60
     GOTO RX_EXIT
 
-KEY26: ' ¡á
+KEY26: ' â– 
     ETX  4800,26
     GOSUB GO_FRONT2
     GOTO RX_EXIT
@@ -1818,22 +1836,22 @@ KEY27: ' D
     GOSUB Woowalk2
     GOTO RX_EXIT
 
-KEY28: ' ¢·
+KEY28: ' â—
     ETX  4800,28
     GOSUB SWalk
     GOTO RX_EXIT
 
-KEY29: ' ¡à
+KEY29: ' â–¡
     ETX  4800,29
     GOSUB Lturn90
     GOTO RX_EXIT
 
-KEY30: ' ¢¹
+KEY30: ' â–·
     ETX  4800,30
     GOSUB TurnRight60
     GOTO RX_EXIT
 
-KEY31: ' ¡ä
+KEY31: ' â–½
     ETX  4800,31
     GOSUB Lwalk
     GOTO RX_EXIT
@@ -1845,12 +1863,12 @@ KEY32: ' F
 
 KEY33: '
     ETX  4800,33
-    GOSUB SWalk
+    GOSUB hyunfront
     GOTO RX_EXIT
 
 KEY34: '
     ETX  4800,34
-    GOSUB SWalk
+    GOSUB kyeongfront
     GOTO RX_EXIT
 
 KEY35: '
