@@ -7,7 +7,9 @@ import cv2
 import serial
 import time
 import sys
+import pytesseract
 from threading import Thread
+import motion
 
 serial_use = 1
 
@@ -20,9 +22,7 @@ threading_Time = 0.01
 c_W = 320
 c_H = 240
 FPS = 90
-
-
-# ------------------모션 제어---------------------------
+# ------------------모션 제어--------------------------- 
 def TX_data_py2(ser, one_byte):  # one_byte= 0~255
     """
         ser : 연결된 시리얼 번호
@@ -67,12 +67,16 @@ def Receiving(ser):
                 receiving_exit = 0
                 break
 
+img = np.ndarray([])
+# ----------------------------------------
 
-Count_L = 0
-Count_R = 0
-y_left = 0
-y_right = 0
-ymax = 0
+def Camera(cap):
+    global img
+
+    while True:
+        ret, img = cap.read()
+        if not ret:
+            break
 
 if __name__ == '__main__':
     os_version = platform.platform()
@@ -99,77 +103,111 @@ if __name__ == '__main__':
     serial_t.start()
     time.sleep(0.1)
 
+    # 로봇 인스턴스 생성-----------------------------
+    dabinoid = motion.Robot(serial_port)
+
     # -----------------camera----------------------
     cap = cv2.VideoCapture(0)
     cap.set(3, c_W)
     cap.set(4, c_H)
+    im_cnt = 0
 
-    cnt = 0
+    camera = Thread(target=Camera, args=(cap,))
+    camera.daemon = True
+    camera.start()
+    time.sleep(1)
+
+    dabinoid.default()
+
+    y_max=0
     while True:
-        # 영상 값 불러옴 img가 영상
-        ret, img = cap.read()
-        if not ret:
-            break
-        img = cv2.medianBlur(img, 5)
+        # 이미지 매치 템플릿 : 미리 넣어둔 이미지와 영상이미지와 비교해 가장 유사한 부분을 리턴
+        left_img = cv2.imread("left.png", cv2.IMREAD_GRAYSCALE)
+        right_img = cv2.imread("right.png", cv2.IMREAD_GRAYSCALE)
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        _, img_th = cv2.threshold(gray, 50, 255, cv2.THRESH_BINARY)
 
-        cv2.imshow("threshold", img_th)
+        left_result = cv2.matchTemplate(gray, left_img, cv2.TM_SQDIFF_NORMED)
+        rignt_result = cv2.matchTemplate(gray, right_img, cv2.TM_SQDIFF_NORMED)
+
+        L_minVal, L_maxVal, L_minLoc, L_maxLoc = cv2.minMaxLoc(left_result)
+        L_x, L_y = L_minLoc
+        L_h, L_w = left_img.shape
+
+        R_minVal, R_maxVal, R_minLoc, R_maxLoc = cv2.minMaxLoc(rignt_result)
+        R_x, R_y = R_minLoc
+        R_h, R_w = right_img.shape
+
+        # ROI : 위에서 얻은 부분을 자름
+        L_roi = gray[L_y:L_y + L_h, L_x:L_x + L_w]
+        R_roi = gray[R_y:R_y + R_h, R_x:R_x + R_w]
+
+        # 검은색만 볼 수 있게끔 이진화
+        _, L_thr = cv2.threshold(L_roi, 75, 255, cv2.THRESH_BINARY)
+        _, R_thr = cv2.threshold(R_roi, 75, 255, cv2.THRESH_BINARY)
+
+        cv2.imshow("L_dst", L_thr)
+        cv2.imshow("R_dst", R_thr)
+
+        # cv2.waitKey(0)
         key = 0xFF & cv2.waitKey(1)
         if key == 27:  # ESC  Key
             cap.release()
             cv2.destroyAllWindows()
             break
 
-        for j in range(240):
-            for i in range(320):
-                if img_th[j, i] == 0:
-                    if ymax <= j:
-                        x = i
-                        ymax = j
+        # 만약 화살표 벽을 보고 있지 않으면 화면은 거의 흰색으로 리턴 될 거임.
+        # 만약 화살표 벽을 보고 있다면 화살표가 잡혀 검은색의 픽셀 수 가 더 많게 될 것.
+        L_black_pixel = np.where(L_thr[:, :] == 255)
+        L_black_pixel = len(L_black_pixel[0])
 
-        for i in range(240):
-            if x - 20 <= 0:
-                if img_th[i, 0] == 0:
-                    y_left = i
-            else:
-                if img_th[i, x - 20] == 0:
-                    y_left = i
-            if x + 20 >= 320:
-                if img_th[i, 319] == 0:
-                    y_right = i
-            else:
-                if img_th[i, x + 20] == 0:
-                    y_right = i
-                    
-        if y_left > y_right:
-            print("L")
-            Count_L += 1
-        else:
-            print("R")
-            Count_R += 1
+        R_black_pixel = np.where(R_thr[:, :] == 255)
+        R_black_pixel = len(R_black_pixel[0])
 
-        if Count_L == 3:
-            print("LEFT!")
-            arrow = "L"
-            Count_L = 0
-            Count_R = 0
-            ymax = 0
-            break;
-        elif Count_R == 3:
-            print("RIGHT!")
-            arrow = "R"
-            Count_L = 0
-            Count_R = 0
-            ymax = 0
-            break;
+        print(L_black_pixel,",",R_black_pixel)
+
+        if L_black_pixel >= 10000 and R_black_pixel >= 10000:  # 거의다 흰색인 경우:배경을 보고있는겨
+            print("여긴 화살표가 아예 아냥...")
         else:
-            ymax = 0
+            _, thr = cv2.threshold(gray, 75, 255, cv2.THRESH_BINARY)
+            cv2.imshow("thr", thr)
+            for xx in range(320):
+                for yy in range(240):
+                    if thr[yy, xx] != 255:
+                        if yy > y_max:
+                            x = xx
+                            y_max = yy
+
+            print(x, ", ", y_max)
+            for i in range(240):
+                if (x - 25) <= 0:
+                    if thr[i, 1] != 255:
+                        y_left = i
+                    if thr[i, x + 25] != 255:
+                        y_right = i
+                elif (x + 25) >= 319:
+                    if thr[i, x - 25] != 255:
+                        y_left = i
+                    if thr[i, 319] != 255:
+                        y_right = i
+                else:
+                    if thr[i, x - 25] != 255:
+                        y_left = i
+                    if thr[i, x + 25] != 255:
+                        y_right = i
+
+            print(y_left, ", ", y_right)
+            if abs((y_max - y_left) - (y_max - y_right)) < 30:
+                print("요기는 화살표의 꼬리다!")
+            else:
+                if (y_max - y_left) > (y_max - y_right):
+                    print("요기는 오른쪽")
+                else:
+                    print("요기는 왼쪽")
+            y_max = 0;
+            x = 0;
+            y_right = 0;
             y_left = 0
-            y_right = 0
-            x = 0
-            continue
 
     # -----  remocon 16 Code  Exit ------
     while receiving_exit == 1:
