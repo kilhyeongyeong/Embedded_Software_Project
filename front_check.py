@@ -149,8 +149,7 @@ if __name__ == '__main__':
     x=0
     w=320
     y=start_y
-    start_yy=180
-    end_yy=240
+
     #----------------------------------------------
 
     while True:
@@ -172,11 +171,11 @@ if __name__ == '__main__':
 
         if front_st==0:
             if front_prev==11:
-                for yy in range(start_yy,end_yy):
+                for yy in range(start_y,end_y):
                     for xx in range(160):
                         if canny[yy,xx]==255:
                             x_std=xx
-                            y_std=xx
+                            y_std=yy
                             break
                         else:
                             x_std=0
@@ -187,20 +186,20 @@ if __name__ == '__main__':
                         continue
                     else:
                         pass
-                for yy in range(240):
-                    if x_std + 5 >= 319:
+                for yy in range(start_y,end_y):
+                    if x_std + 7 >= 319:
                         if canny[yy, 319] == 255:
                             y_right = yy
                     else:
-                        if canny[yy, x_std + 5] == 255:
+                        if canny[yy, x_std + 7] == 255:
                             y_right = yy
                 print(y_std,", ", y_right,", ",y_std-y_right)
-                if y_std-y_right>5: #\요런 대각선
+                if y_std-y_right>1: #/요런 대각선
                     print("11Left_Turn")
                     dabinoid.Left_Turn()
                     front_st=1
                     continue
-                elif y_std-y_right<-5: #/요런 대각선
+                elif y_std-y_right<-1: #\요런 대각선
                     print("11Right_Turn")
                     dabinoid.Right_Turn()
                     front_st=1
@@ -212,31 +211,31 @@ if __name__ == '__main__':
                     break
                 front_prev = 0
             elif front_prev==12:
-                for yy in range(start_yy,end_yy):
+                for yy in range(start_y,end_y):
                     for xx in range(161,319):
                         if canny[yy,xx]==255:
                             x_std=xx
-                            y_std=xx
+                            y_std=yy
                             break
                         else:
                             x_std=0
                             y_std=0
                     if x_std!=0 or y_std!=0:
                         break
-                for yy in range(240):
-                    if x_std+5>=319:
+                for yy in range(start_y,end_y):
+                    if x_std+7>=319:
                         if canny[yy,319]==255:
                             y_right=yy
                     else:
-                        if canny[yy,x_std+5]==255:
+                        if canny[yy,x_std+7]==255:
                             y_right=yy
                 print(y_std,", ", y_right,", ",y_std-y_right)
-                if y_std-y_right>5: #\요런 대각선
+                if y_std-y_right>1: #/요런 대각선
                     print("12Left_Turn")
                     dabinoid.Left_Turn()
                     front_st=1
                     continue
-                elif y_std-y_right<-5: #/요런 대각선
+                elif y_std-y_right<-1: #\요런 대각선
                     print("12right_turn")
                     dabinoid.Right_Turn()
                     front_st=1
