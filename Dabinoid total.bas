@@ -358,7 +358,23 @@ Arm_motor_mode3:
     GOSUB 자이로OFF
     RETURN
     '**********************************************
+기본125:
+    MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 25
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 125, 100    
+    WAIT      
+    mode = 0
+    RETURN 
     '**********************************************
+기본130:
+    MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 25
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 130, 100    
+    WAIT      
+    mode = 0
+    RETURN     
     '**********************************************
 RX_EXIT:
 
@@ -375,6 +391,7 @@ GOSUB_RX_EXIT:
 GOSUB_RX_EXIT2:
     RETURN
     '**********************************************
+
 
 EAST:
     PRINT "VOLUME 200 !"
@@ -2895,7 +2912,7 @@ MAIN: '라벨설정
 
 MAIN2:
 
-    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18 ,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27, KEY28, KEY29, KEY30, KEY31, KEY32, KEY33, KEY34, KEY35, KEY36, KEY37, KEY38, KEY39, KEY40, KEY41, KEY42, KEY43, KEY44, KEY45, KEY46, KEY47, KEY48, KEY49, KEY50, KEY51, KEY52, KEY53, KEY54
+    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18 ,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27, KEY28, KEY29, KEY30, KEY31, KEY32, KEY33, KEY34, KEY35, KEY36, KEY37, KEY38, KEY39, KEY40, KEY41, KEY42, KEY43, KEY44, KEY45, KEY46, KEY47, KEY48, KEY49, KEY50, KEY51, KEY52, KEY53, KEY54, KEY55, KEY56
 
     GOTO MAIN	
     '*******************************************
@@ -3168,5 +3185,16 @@ KEY53:
 KEY54:
     ETX  4800,54
     GOSUB TurnRight603
-    GOTO RX_EXIT                                                            
+    GOTO RX_EXIT   
+
+KEY55:
+    ETX  4800,55
+    GOSUB 기본125
+    GOTO RX_EXIT   
+
+KEY56:
+    ETX  4800,56
+    GOSUB 기본130
+    GOTO RX_EXIT                                 
+                                               
     END
