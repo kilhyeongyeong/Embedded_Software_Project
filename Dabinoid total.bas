@@ -340,6 +340,15 @@ Arm_motor_mode3:
     mode = 0
     RETURN
     '************************************************
+ST: '문열때 화살표확인  
+    MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, , ,110
+    MOVE G6C,100,  35,  80, 100, 110
+    WAIT
+    mode = 0
+    RETURN
+    '************************************************    
 차렷자세:
     MOVE G6A,100, 56, 182, 76, 100, 100
     MOVE G6D,100, 56, 182, 76, 100, 100
@@ -486,6 +495,15 @@ NORTH:
     ETX 4800,33
     RETURN
     '**********************************************
+safe:
+    PRINT "VOLUME 200 !"
+    PRINT "SOUND 4 !"
+
+    MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 100
+    WAIT
+    RETURN
+    '*************************************************        
 danger:
     PRINT "VOLUME 200 !"
     PRINT "SOUND 5 !"
@@ -495,16 +513,42 @@ danger:
     WAIT
     RETURN
     '************************************************
-safe:
+Aland:
     PRINT "VOLUME 200 !"
-    PRINT "SOUND 4 !"
-
+    PRINT "SOUND 6 !"
+    
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 100
     WAIT
     RETURN
-    '*************************************************
-
+    '************************************************
+Bland:
+    PRINT "VOLUME 200 !"
+    PRINT "SOUND 7 !"
+    
+    MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 100
+    WAIT
+    RETURN
+    '************************************************
+Cland:
+    PRINT "VOLUME 200 !"
+    PRINT "SOUND 8 !"
+    
+    MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 100    
+    WAIT
+    RETURN
+    '************************************************
+Dland:
+    PRINT "VOLUME 200 !"
+    PRINT "SOUND 9 !"
+    
+    MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 100    
+    WAIT
+    RETURN
+    '************************************************      
 첫부분고개살짝들기:
     MOVE G6A,100,  76, 145,  93, 100, 100
     MOVE G6D,100,  76, 145,  93, 100, 100
@@ -2933,7 +2977,7 @@ MAIN: '라벨설정
 
 MAIN2:
 
-    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18 ,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27, KEY28, KEY29, KEY30, KEY31, KEY32, KEY33, KEY34, KEY35, KEY36, KEY37, KEY38, KEY39, KEY40, KEY41, KEY42, KEY43, KEY44, KEY45, KEY46, KEY47, KEY48, KEY49, KEY50, KEY51, KEY52, KEY53, KEY54, KEY55, KEY56
+    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18 ,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27, KEY28, KEY29, KEY30, KEY31, KEY32, KEY33, KEY34, KEY35, KEY36, KEY37, KEY38, KEY39, KEY40, KEY41, KEY42, KEY43, KEY44, KEY45, KEY46, KEY47, KEY48, KEY49, KEY50, KEY51, KEY52, KEY53, KEY54, KEY55, KEY56, KEY57, KEY58, KEY59, KEY60, KEY61
 
     GOTO MAIN	
     '*******************************************
@@ -2942,7 +2986,7 @@ MAIN2:
 
 KEY1:
     ETX  4800,1
-    GOSUB EAST
+    GOSUB EAST 
     GOTO RX_EXIT
 
 KEY2:
@@ -3218,5 +3262,30 @@ KEY56:
     ETX  4800,56
     GOSUB 기본130
     GOTO RX_EXIT
+    
+KEY57:
+    ETX  4800,57
+    GOSUB ST
+    GOTO RX_EXIT
 
+KEY58:
+    ETX  4800,58
+    GOSUB Aland
+    GOTO RX_EXIT
+    
+KEY59:
+    ETX  4800,59
+    GOSUB Bland
+    GOTO RX_EXIT
+    
+KEY60:
+    ETX  4800,60
+    GOSUB Cland
+    GOTO RX_EXIT
+
+KEY61:
+    ETX  4800,61
+    GOSUB Dland    
+    GOTO RX_EXIT  
+                  
     END
