@@ -216,6 +216,11 @@ Leg_motor_mode5:
     MOTORMODE G6D,3,2,2,1,2
     RETURN
     '************************************************
+Leg_motor_mode6:
+    MOTORMODE G6A,3,3,3,3,2
+    MOTORMODE G6D,3,3,3,3,2
+    RETURN
+    '*************************************************
 LArm_motor_mode1:
     MOTORMODE G6B,1,1,1,,,1
     RETURN
@@ -653,7 +658,7 @@ WooWalk2:
 
     GOSUB 자이로OFF
 
-    DELAY 500
+    DELAY 100
 
     RETURN
     '***************************
@@ -753,7 +758,7 @@ CDWalk:
 
     GOSUB 자이로OFF
 
-    DELAY 500
+    DELAY 100
 
     RETURN
     '**********************************************
@@ -853,7 +858,7 @@ ADWalk:
 
     GOSUB 자이로OFF
 
-    DELAY 500
+    DELAY 100
 
     RETURN
     '**********************************************
@@ -875,7 +880,7 @@ Lturn90:
 
     SPEED 10
     GOSUB 기본자세
-    DELAY 500
+    DELAY 100
 
     GOSUB 자이로ON
     RETURN
@@ -907,7 +912,7 @@ MLturn90:
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
 
-    DELAY 500
+    DELAY 100
 
     GOSUB 자이로ON
     RETURN
@@ -996,7 +1001,7 @@ jiwon:
     DELAY 100
     RETURN
     '***************************************
-milkwalkfront: '수정해야함!AD4
+milkwalkfront: '수정해야함!AD4--한발자국 추가로 해야함 !!!
 
     GOSUB 자이로ON
     HIGHSPEED SETOFF
@@ -1512,7 +1517,7 @@ backstepleft: '뒷걸음질 원본
     SPEED 5
     GOSUB 기본자세
 
-    DELAY 500
+    DELAY 100
 
     RETURN
 
@@ -1582,7 +1587,7 @@ backstepleft2: 'hyun각도로 숙이고 앞쪽
     MOVE G6B,100,  35,  80, 100, 100, 100
     MOVE G6C,100,  35,  80, 100, 140, 100
     WAIT
-    DELAY 500
+    DELAY 100
 
     RETURN
 
@@ -1652,7 +1657,7 @@ backstepleft3: 'kyeong각도로 숙이고 정면
     MOVE G6B,100,  35,  80, 100, 100, 100
     MOVE G6C,100,  35,  80, 100, 170, 100
     WAIT
-    DELAY 500
+    DELAY 100
 
     RETURN
 
@@ -1822,7 +1827,7 @@ dooropen:
     SPEED 5
     GOSUB 기본자세
 
-    DELAY 500
+    DELAY 100
 
     RETURN
     '************************************************
@@ -1888,7 +1893,7 @@ backstepright:
     WAIT
 
 
-    DELAY 500
+    DELAY 100
 
     RETURN
 
@@ -2299,7 +2304,7 @@ woosturnleft: 'JLturn10 수정한것
     MOVE G6A,100,  76, 145,  93, 100, 100
     WAIT
 
-    DELAY 200
+    DELAY 100
 
 
 
@@ -2458,7 +2463,90 @@ MTurnRight60:
     WAIT
 
     RETURN
-    '***************************************************
+    '***************************************
+왼쪽턴180_LOOP_5:
+
+    GOSUB 자이로ON
+    HIGHSPEED SETOFF
+    GOSUB Leg_motor_mode6
+    
+    
+    FOR I=0 TO 4
+    
+    SPEED 15
+    MOVE G6A,95,  116, 145,  53, 105, 100
+    MOVE G6D,95,  36, 145,  133, 105, 100
+    WAIT
+
+    SPEED 15
+    MOVE G6A,90,  116, 145,  53, 105, 100
+    MOVE G6D,90,  36, 145,  133, 105, 100
+    WAIT
+    
+    SPEED 10
+    GOSUB 기본자세2
+    DELAY 50
+    
+    NEXT I
+
+    RETURN
+    
+    '*******************************  
+왼쪽턴180_LOOP_3:
+
+    GOSUB 자이로ON
+    HIGHSPEED SETOFF
+    GOSUB Leg_motor_mode6
+    
+    
+    FOR I=0 TO 2
+    
+    SPEED 15
+    MOVE G6A,95,  116, 145,  53, 105, 100
+    MOVE G6D,95,  36, 145,  133, 105, 100
+    WAIT
+
+    SPEED 15
+    MOVE G6A,90,  116, 145,  53, 105, 100
+    MOVE G6D,90,  36, 145,  133, 105, 100
+    WAIT
+    
+    SPEED 10
+    GOSUB 기본자세2
+    DELAY 50
+    
+    NEXT I
+
+
+    RETURN
+    
+    '*********************************    
+오른쪽턴100_LOOP:
+
+    GOSUB 자이로ON
+    HIGHSPEED SETOFF
+    GOSUB Leg_motor_mode6
+    
+    FOR I=0 TO 2
+     
+    SPEED 15
+    MOVE G6A,95,  36, 145,  133, 105, 100
+    MOVE G6D,95,  116, 145,  53, 105, 100
+    WAIT
+
+    SPEED 15
+    MOVE G6A,90,  36, 145,  133, 105, 100
+    MOVE G6D,90,  116, 145,  53, 105, 100
+    WAIT
+
+    SPEED 10
+    GOSUB 기본자세2
+    DELAY 50
+    
+    NEXT I
+
+    RETURN
+    '********************************    
 Lastdooropen:
 
     GOSUB 자이로ON
@@ -2485,7 +2573,6 @@ Lastdooropen:
     MOVE G6B,180,  10,  50, 100, 100, 100
     MOVE G6C,180,  10,  60, 100, 117, 100
     WAIT
-
 
 
     '****************************************
@@ -2564,12 +2651,11 @@ Lastdooropen:
     SPEED 5
     GOSUB 기본자세
 
-    DELAY 500
+    DELAY 100
 
     RETURN
 
     '**********************************************
-
 LWalk:
 
     GOSUB 자이로OFF
@@ -2604,7 +2690,7 @@ LWalk:
     MOVE G6C,100,  35,  80, 100, 110, 100
     WAIT
     RETURN
-    '**********************************************
+
     '**********************************************
 LWalk2: 'hyun각도로정면 보고 걷기
 
@@ -2983,7 +3069,7 @@ MAIN: '라벨설정
 
 MAIN2:
 
-    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27, KEY28, KEY29, KEY30, KEY31, KEY32, KEY33, KEY34, KEY35, KEY36, KEY37, KEY38, KEY39, KEY40, KEY41, KEY42, KEY43, KEY44, KEY45, KEY46, KEY47, KEY48, KEY49, KEY50, KEY51, KEY52, KEY53, KEY54, KEY55, KEY56, KEY57, KEY58, KEY59, KEY60, KEY61, KEY62
+    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27, KEY28, KEY29, KEY30, KEY31, KEY32, KEY33, KEY34, KEY35, KEY36, KEY37, KEY38, KEY39, KEY40, KEY41, KEY42, KEY43, KEY44, KEY45, KEY46, KEY47, KEY48, KEY49, KEY50, KEY51, KEY52, KEY53, KEY54, KEY55, KEY56, KEY57, KEY58, KEY59, KEY60, KEY61, KEY62,KEY63,KEY64,KEY65
 
     GOTO MAIN	
     '*******************************************
@@ -3298,5 +3384,20 @@ KEY62:
     ETX  4800,62
     GOSUB kilfront2   
     GOTO RX_EXIT              
-          
+     
+KEY63:
+    ETX 4800,63
+    GOSUB 왼쪽턴180_LOOP_3
+    GOTO RX_EXIT
+
+KEY64:
+    ETX 4800,64
+    GOSUB 왼쪽턴180_LOOP_5
+    GOTO RX_EXIT   
+    
+KEY65:
+    ETX 4800,65
+    GOSUB 오른쪽턴100_LOOP
+    GOTO RX_EXIT    
+                            
     END
