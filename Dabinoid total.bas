@@ -401,8 +401,6 @@ GOSUB_RX_EXIT:
 GOSUB_RX_EXIT2:
     RETURN
     '**********************************************
-
-
 EAST:
     PRINT "VOLUME 200 !"
     PRINT "SOUND 0 !"
@@ -1004,16 +1002,16 @@ milkwalkfront: '수정해야함!AD4
     HIGHSPEED SETOFF
     GOSUB All_motor_mode3
 
-    SPEED 15
+    SPEED 10
     MOVE G6A,100,  76, 143,  90, 100, 100
     MOVE G6D,100,  76, 146,  90, 100, 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
 
-    SPEED 15
+    SPEED 10
     MOVE G6D,103,  76, 144,  93, 102, 100
-    MOVE G6A,98,  86, 125, 104, 100, 100
+    MOVE G6A,98,  86, 126, 105, 100, 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
@@ -1021,65 +1019,65 @@ milkwalkfront: '수정해야함!AD4
     '****************************************
 
     SPEED 15'왼
-    MOVE G6A, 100,  66, 143, 103, 100, 100
-    MOVE G6D,100,  86, 146,  81, 101 100
+    MOVE G6A, 100,  70, 148, 100, 100, 100
+    MOVE G6D,100,  86, 145,  81, 101 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
 
     SPEED 15'오
-    MOVE G6A,103,  76, 141,  90, 103, 100
-    MOVE G6D,98,  86, 126, 103, 100, 100
+    MOVE G6A,103,  76, 146,  92, 103, 100
+    MOVE G6D,98,  86, 130, 104, 100, 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
 
     SPEED 15'왼
-    MOVE G6D,100,  66, 148, 103, 100, 100
-    MOVE G6A,100,  86, 141,  81, 101, 100
+    MOVE G6D,100,  70, 148, 100, 100, 100
+    MOVE G6A,100,  86, 145,  81, 101, 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
 
     SPEED 15'오
-    MOVE G6D,103,  76, 146,  90, 103, 100
-    MOVE G6A,98,  86, 121, 103, 100, 100
+    MOVE G6D,103,  76, 146,  92, 103, 100
+    MOVE G6A,98,  86, 130, 104, 100, 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
     
     '****************************************
     SPEED 15
-    MOVE G6A, 100,  66, 143, 103, 100, 100
-    MOVE G6D,100,  86, 146,  81, 101, 100
+    MOVE G6A, 100,  70, 146, 100, 100, 100
+    MOVE G6D,100,  86, 145,  81, 101, 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
 
     SPEED 15
-    MOVE G6A,103,  76, 143,  90, 103, 100
-    MOVE G6D,98,  86, 126, 103, 100, 100
+    MOVE G6A,103,  76, 143,  92, 103, 100
+    MOVE G6D,98,  86, 130, 101, 100, 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
 
     SPEED 15
-    MOVE G6D,100,  66, 146, 103, 100, 100
-    MOVE G6A,100,  86, 143,  81, 101, 100
+    MOVE G6D,100,  70, 146, 100, 100, 100
+    MOVE G6A,100,  86, 145,  81, 101, 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
 
     SPEED 15
-    MOVE G6D,103,  76, 146,  90, 103, 100
-    MOVE G6A,98,  80, 123,  103, 100, 100
+    MOVE G6D,103,  76, 143,  92, 103, 100
+    MOVE G6A,98,  80, 130,  101, 100, 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
 
     SPEED 10
     MOVE G6A,100,  76, 143,  90, 100, 100
-    MOVE G6D,100,  76, 146,  90, 100, 100
+    MOVE G6D,100,  76, 145,  90, 100, 100
     MOVE G6B,190,  15,  55, 100, 160, 100
     MOVE G6C,190,  15,  55, 100, 160, 100
     WAIT
@@ -1088,7 +1086,6 @@ milkwalkfront: '수정해야함!AD4
     DELAY 100
 
     RETURN
-    '****************************************
     '****************************************
 jiwondown:
 
@@ -2076,6 +2073,15 @@ kilfront:
     mode=0
     RETURN
     '************************************************
+kilfront2:
+    MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 100, 100
+    WAIT
+    mode=0
+    RETURN
+    '************************************************    
 killeft:
 
     MOVE G6A,100,  76, 145,  93, 100, 100
@@ -2977,7 +2983,7 @@ MAIN: '라벨설정
 
 MAIN2:
 
-    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18 ,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27, KEY28, KEY29, KEY30, KEY31, KEY32, KEY33, KEY34, KEY35, KEY36, KEY37, KEY38, KEY39, KEY40, KEY41, KEY42, KEY43, KEY44, KEY45, KEY46, KEY47, KEY48, KEY49, KEY50, KEY51, KEY52, KEY53, KEY54, KEY55, KEY56, KEY57, KEY58, KEY59, KEY60, KEY61
+    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27, KEY28, KEY29, KEY30, KEY31, KEY32, KEY33, KEY34, KEY35, KEY36, KEY37, KEY38, KEY39, KEY40, KEY41, KEY42, KEY43, KEY44, KEY45, KEY46, KEY47, KEY48, KEY49, KEY50, KEY51, KEY52, KEY53, KEY54, KEY55, KEY56, KEY57, KEY58, KEY59, KEY60, KEY61, KEY62
 
     GOTO MAIN	
     '*******************************************
@@ -3287,5 +3293,10 @@ KEY61:
     ETX  4800,61
     GOSUB Dland    
     GOTO RX_EXIT  
-                  
+ 
+KEY62:
+    ETX  4800,62
+    GOSUB kilfront2   
+    GOTO RX_EXIT              
+          
     END
