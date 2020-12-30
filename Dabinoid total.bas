@@ -1695,10 +1695,9 @@ dooropen:
     WAIT
 
 
-
     '****************************************
 
-    FOR I = 0 TO 10
+   FOR I = 0 TO 10
 
         SPEED 10
         MOVE G6A, 99,  66, 145, 103, 100, 100
@@ -1835,6 +1834,7 @@ dooropen:
 
     RETURN
     '************************************************
+
     '************************************************
 backstepright:
 
@@ -2497,6 +2497,40 @@ MTurnRight60:
     RETURN
 
     '*******************************
+ML180_LOOP_4:
+
+    GOSUB 자이로ON
+    HIGHSPEED SETOFF
+    GOSUB Leg_motor_mode6
+
+
+    FOR I=0 TO 3
+
+        SPEED 15
+        MOVE G6A,95,  116, 145,  53, 105, 100
+        MOVE G6D,95,  36, 145,  133, 105, 100
+        MOVE G6B,190,  15,  55, 100, 160, 100
+        MOVE G6C,190,  15,  55, 100, 160, 100        
+        WAIT
+
+        SPEED 15
+        MOVE G6A,90,  116, 145,  53, 105, 100
+        MOVE G6D,90,  36, 145,  133, 105, 100
+        MOVE G6B,190,  15,  55, 100, 160, 100
+        MOVE G6C,190,  15,  55, 100, 160, 100        
+        WAIT
+ 
+        SPEED 15
+ 	    MOVE G6A,100,  76, 145,  93, 100, 100
+  	    MOVE G6D,100,  76, 145,  93, 100, 100
+        MOVE G6B,190,  15,  55, 100, 160, 100
+        MOVE G6C,190,  15,  55, 100, 160, 100        
+        WAIT
+        
+    NEXT I
+
+    RETURN
+    '***************************    
 왼쪽턴180_LOOP_3:
 
     GOSUB 자이로ON
@@ -2666,24 +2700,24 @@ Lwalk:
 
     GOSUB Leg_motor_mode2
 
-    SPEED 12
+    SPEED 11
     MOVE G6A, 93,  88, 125, 104, 104, 100
-    MOVE G6D,103,  76, 145,  96, 104, 100
+    MOVE G6D,99,  76, 145,  96, 104, 100
     MOVE G6B,100,  35,  80, 100, 100, 100
     MOVE G6C,100,  35,  80, 100, 110, 100
     WAIT
 
-    SPEED 12
+    SPEED 11
     MOVE G6A, 102,  78, 145, 94, 100, 100
     MOVE G6D,90,  80, 140,  96, 107, 100
     MOVE G6B,100,  35,  80, 100, 100, 100
     MOVE G6C,100,  35,  80, 100, 110, 100
     WAIT
 
-    SPEED 15
+    SPEED 11
     MOVE G6A,98,  76, 145,  93, 102, 100
     MOVE G6D,98,  76, 145,  93, 102, 100
-    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100	
     MOVE G6C,100,  35,  80, 100, 110, 100
     WAIT
 
@@ -2698,31 +2732,146 @@ Lwalk:
     '**********************************************
 LWALK5:
 
-
     SPEED 10
     MOVE G6A, 90,  93, 120, 105, 110, 100
     MOVE G6D,100,  73, 145,  93, 107, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 110, 100    
     WAIT
 
     SPEED 10
     MOVE G6A, 102,  79, 145, 93, 100, 100
     MOVE G6D,83,  75, 140,  96, 115, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 110, 100    
     WAIT
 
     SPEED 10
     MOVE G6A,98,  79, 145,  93, 100, 100
     MOVE G6D,98,  73, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 110, 100    
     WAIT
 
     SPEED 9
     MOVE G6D,100,  73, 145,  93, 100, 100
     MOVE G6A,100,  79, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 110, 100    
+    WAIT
+    
+    SPEED 8
+    MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 110, 100
     WAIT
 
-    GOSUB 기본자세
+    RETURN
+    '*************************************************
+KLWALK5:
+
+    SPEED 10
+    MOVE G6A, 90,  93, 120, 105, 110, 100
+    MOVE G6D,100,  73, 145,  93, 107, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 170, 100    
+    WAIT
+
+    SPEED 10
+    MOVE G6A, 102,  79, 145, 93, 100, 100
+    MOVE G6D,83,  75, 140,  96, 115, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 170, 100    
+    WAIT
+
+    SPEED 10
+    MOVE G6A,98,  79, 145,  93, 100, 100
+    MOVE G6D,98,  73, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 170, 100    
+    WAIT
+
+    SPEED 9
+    MOVE G6D,100,  73, 145,  93, 100, 100
+    MOVE G6A,100,  79, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 170, 100    
+    WAIT
 
     RETURN
-    '*************************************************88
+    '*************************************************    
+RWALK5:
+
+    SPEED 10
+    MOVE G6D, 90,  93, 120, 105, 110, 100
+    MOVE G6A,100,  73, 145,  93, 107, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 110, 100    
+    WAIT
+
+    SPEED 10
+    MOVE G6D, 102,  79, 145, 93, 100, 100
+    MOVE G6A,83,  75, 140,  96, 115, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 110, 100    
+    WAIT
+
+    SPEED 10
+    MOVE G6D,98,  79, 145,  93, 100, 100
+    MOVE G6A,98,  73, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 110, 100    
+    WAIT
+
+    SPEED 9
+    MOVE G6D,100,  73, 145,  93, 100, 100
+    MOVE G6A,100,  79, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 110, 100    
+    WAIT
+
+    SPEED 8
+    MOVE G6A,100,  76, 145,  93, 100, 100
+    MOVE G6D,100,  76, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 110, 100
+    WAIT
+
+    RETURN
+    '***********************************************  
+KRWALK5:
+
+    SPEED 10
+    MOVE G6D, 90,  93, 120, 105, 110, 100
+    MOVE G6A,100,  73, 145,  93, 107, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 170, 100        
+    WAIT
+
+    SPEED 10
+    MOVE G6D, 102,  79, 145, 93, 100, 100
+    MOVE G6A,83,  75, 140,  96, 115, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 170, 100    
+    WAIT
+
+    SPEED 10
+    MOVE G6D,98,  79, 145,  93, 100, 100
+    MOVE G6A,98,  73, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 170, 100    
+    WAIT
+
+    SPEED 9
+    MOVE G6D,100,  73, 145,  93, 100, 100
+    MOVE G6A,100,  79, 145,  93, 100, 100
+    MOVE G6B,100,  35,  80, 100, 100, 100
+    MOVE G6C,100,  35,  80, 100, 170, 100    
+    WAIT
+
+    RETURN
+    '***********************************************          
 GO_FRONT4:
 
     GOSUB 자이로ON
@@ -3082,14 +3231,14 @@ line_왼쪽턴20:
 
     SPEED 8
     MOVE G6A,95,  96, 145,  73, 105, 100
-    MOVE G6D,95,  56, 145,  113, 105, 100
+    MOVE G6D,95,  56, 145,  113, 97, 100
     MOVE G6B,100,  35,  80, 100, 100, 100
     MOVE G6C,100,  35,  80, 100, 170, 100
     WAIT
 
     SPEED 12
     MOVE G6A,93,  96, 145,  73, 105, 100
-    MOVE G6D,93,  56, 145,  113, 105, 100
+    MOVE G6D,93,  56, 145,  113, 97, 100
     MOVE G6B, ,  ,  , 100, 100, 100
     MOVE G6C,,  ,  , 100, 170, 100
     WAIT
@@ -3168,14 +3317,14 @@ line_오른쪽턴20:
     GOSUB Leg_motor_mode6
 
     SPEED 8
-    MOVE G6A,95,  56, 145,  113, 105, 100
+    MOVE G6A,95,  56, 145,  113, 97, 100
     MOVE G6D,95,  96, 145,  73, 105, 100
     MOVE G6B,100
     MOVE G6C,100, , , ,170
     WAIT
 
     SPEED 12
-    MOVE G6A,93,  56, 145,  113, 105, 100
+    MOVE G6A,93,  56, 145,  113, 97, 100
     MOVE G6D,93,  96, 145,  73, 105, 100
     MOVE G6C, , , , , 170
     WAIT
@@ -3237,7 +3386,7 @@ MAIN: '라벨설정
 
 MAIN2:
 
-    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27, KEY28, KEY29, KEY30, KEY31, KEY32, KEY33, KEY34, KEY35, KEY36, KEY37, KEY38, KEY39, KEY40, KEY41, KEY42, KEY43, KEY44, KEY45, KEY46, KEY47, KEY48, KEY49, KEY50, KEY51, KEY52, KEY53, KEY54, KEY55, KEY56, KEY57, KEY58, KEY59, KEY60, KEY61, KEY62,KEY63,KEY64,KEY65,KEY66
+    ON A GOTO MAIN,KEY1,KEY2,KEY3,KEY4,KEY5,KEY6,KEY7,KEY8,KEY9,KEY10,KEY11,KEY12,KEY13,KEY14,KEY15,KEY16,KEY17,KEY18,KEY19,KEY20,KEY21,KEY22,KEY23,KEY24,KEY25,KEY26,KEY27, KEY28, KEY29, KEY30, KEY31, KEY32, KEY33, KEY34, KEY35, KEY36, KEY37, KEY38, KEY39, KEY40, KEY41, KEY42, KEY43, KEY44, KEY45, KEY46, KEY47, KEY48, KEY49, KEY50, KEY51, KEY52, KEY53, KEY54, KEY55, KEY56, KEY57, KEY58, KEY59, KEY60, KEY61, KEY62,KEY63,KEY64,KEY65,KEY66,KEY67, KEY68, KEY69, KEY70, KEY71
 
     GOTO MAIN	
     '*******************************************
@@ -3319,8 +3468,7 @@ KEY15: ' A
     GOTO RX_EXIT
 
 KEY16: ' POWER
-    ETX  4800,16
-    GOSUB Swalk
+    ETX  4800,16  '원래 Swalk자리 
     GOTO RX_EXIT
 
 KEY17: ' C
@@ -3573,4 +3721,29 @@ KEY66:
     GOSUB LWALK5
     GOTO RX_EXIT
 
+KEY67:
+    ETX 4800,67
+    GOSUB ML180_LOOP_4
+    GOTO RX_EXIT
+ 
+KEY68:
+    ETX 4800,68
+    GOSUB Rwalk5
+    GOTO RX_EXIT
+    
+KEY69:
+    ETX 4800,69
+    GOSUB Swalk
+    GOTO RX_EXIT
+     
+KEY70:
+    ETX 4800,70
+    GOSUB KLwalk5
+    GOTO RX_EXIT  
+
+KEY71:
+    ETX 4800,71
+    GOSUB KRwalk5
+    GOTO RX_EXIT  
+           
     END
